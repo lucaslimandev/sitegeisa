@@ -165,14 +165,55 @@
     })
   }
 
-  // ===== Form feedback (fake submit) =====
+  // ===== Form -> WhatsApp =====
+  // Envia os dados do formulário para o WhatsApp (link wa.me) com mensagem pré-preenchida.
+  // (Sem backend, sem API, 100% client-side.)
+  const WHATSAPP_NUMBER = "5577981472959"
+
+  function buildWhatsAppMessage(formEl) {
+    const fd = new FormData(formEl)
+    const nome = (fd.get("nome") || "").toString().trim()
+    const email = (fd.get("email") || "").toString().trim()
+    const whats = (fd.get("whats") || "").toString().trim()
+    const segmento = (fd.get("segmento") || "").toString().trim()
+    const servico = (fd.get("servico") || "").toString().trim()
+    const mensagem = (fd.get("mensagem") || "").toString().trim()
+
+    const linhas = [
+      "Olá, Geisa! Gostaria de falar sobre um projeto.",
+      "",
+      `Nome: ${nome || "(não informado)"}`,
+      `Email: ${email || "(não informado)"}`,
+      `WhatsApp: ${whats || "(não informado)"}`,
+      `Segmento: ${segmento || "(não informado)"}`,
+      `Serviço: ${servico || "(não informado)"}`,
+    ]
+
+    if (mensagem) {
+      linhas.push("", "Mensagem:", mensagem)
+    }
+
+    return linhas.join("\n")
+  }
+
+  function openWhatsAppWithMessage(message) {
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+
+    // tenta abrir em nova aba; se o browser bloquear popups, cai para a aba atual.
+    const win = window.open(url, "_blank", "noopener,noreferrer")
+    if (!win) window.location.href = url
+  }
+
   if (form && feedback) {
     form.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      // simple client-side feedback
-      feedback.textContent =
-        "Mensagem enviada com sucesso! Entrarei em contato em breve."
+      const message = buildWhatsAppMessage(form)
+
+      feedback.textContent = "Abrindo o WhatsApp com sua mensagem…"
+      openWhatsAppWithMessage(message)
+
+      // opcional: limpar depois de disparar
       form.reset()
     })
   }

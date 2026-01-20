@@ -1191,6 +1191,13 @@ header,
   border-radius: var(--radius-md);
 }
 
+.contact-link-icon img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: invert(1);
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -1331,9 +1338,23 @@ header,
   transition: all 0.3s ease;
 }
 
+.footer-social a img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  filter: invert(1);
+}
+
 .footer-social a:hover {
   background: var(--red);
   border-color: var(--red);
+}
+
+.footer-social-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  filter: invert(1);
 }
 
 /* =========================================================
