@@ -28,8 +28,8 @@
 
     <div class="bg-grid" aria-hidden="true"></div>
 
-    <!-- Header: tema troca via JS entre header--dark e header--light -->
-    <header class="site-header header--dark" role="banner">
+    <!-- Header: sempre claro (fundo branco + texto escuro) -->
+    <header class="site-header header--light" role="banner">
       <nav class="nav" aria-label="Navegação principal">
         <a class="logo" href="#top" aria-label="Voltar ao topo"><img src="./img/gc-logo.svg" class="logo-mark" alt="" aria-hidden="true" /><span class="logo-text">GEISA CARRILHO</span></a>
 
@@ -106,10 +106,7 @@
             <a href="#portfolio" class="btn-secondary">Ver Trabalhos</a>
           </div>
 
-          <div class="hero-scroll" aria-hidden="true">
-            <div class="scroll-line"></div>
-            <span class="scroll-text">Scroll para explorar</span>
-          </div>
+          <!-- Removido: "Scroll para explorar" -->
         </div>
 
         <div class="hero-right" aria-hidden="true">
@@ -518,12 +515,22 @@
                 @geisa.mobile
               </a>
 
-              <a href="#" class="contact-link">
+              <a
+                href="https://wa.me/5577981472959"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact-link"
+                aria-label="Abrir WhatsApp"
+              >
                 <span class="contact-link-icon" aria-hidden="true"><img src="./img/whatsapp-svgrepo-com.svg" alt="" class="icon-svg" /></span>
                 WhatsApp
               </a>
 
-              <a href="#" class="contact-link">
+              <a
+                href="mailto:contato@geisacarrilho.com"
+                class="contact-link"
+                aria-label="Enviar email"
+              >
                 <span class="contact-link-icon" aria-hidden="true"><img src="./img/email-1-svgrepo-com.svg" alt="" class="icon-svg" /></span>
                 contato@geisacarrilho.com
               </a>
@@ -637,7 +644,14 @@
         >
         <a href="#" title="TikTok" aria-label="Abrir TikTok"><img src="./img/tiktok-svgrepo-com.svg" alt="" class="social-icon" /></a>
         <a href="#" title="LinkedIn" aria-label="Abrir LinkedIn"><img src="./img/linkedin.svg" alt="" class="social-icon" /></a>
-        <a href="#" title="WhatsApp" aria-label="Abrir WhatsApp"><img src="./img/whatsapp-svgrepo-com.svg" alt="" class="social-icon" /></a>
+        <a
+          href="https://wa.me/5577981472959"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="WhatsApp"
+          aria-label="Abrir WhatsApp"
+          ><img src="./img/whatsapp-svgrepo-com.svg" alt="" class="social-icon"
+        /></a>
       </div>
     </footer>
   </body>

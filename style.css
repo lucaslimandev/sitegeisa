@@ -176,6 +176,35 @@ textarea:focus-visible {
   background: var(--text);
   color: white;
 }
+
+/* =========================================================
+   Header sempre claro (pedido do cliente)
+   Independente de classes/JS, o header fica com fundo claro e texto escuro.
+   ========================================================= */
+.site-header .nav {
+  background: #ffffff !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.site-header .logo,
+.site-header .nav-links a,
+.site-header .nav-cta,
+.site-header .nav-toggle {
+  color: var(--text) !important;
+}
+
+.site-header .nav-toggle {
+  border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.site-header .nav-cta {
+  border-color: var(--text) !important;
+}
+
+.site-header .nav-cta:hover {
+  background: var(--text) !important;
+  color: #fff !important;
+}
 header,
 .nav {
   background: #ffffff;
@@ -513,6 +542,8 @@ header,
 
 .hero-title .line span {
   display: block;
+  font-size: 1em;
+  font-weight: 400;
   transform: translateY(100%);
   animation: slideUp 0.8s ease forwards;
 }
@@ -1267,26 +1298,26 @@ header,
 .form-group select,
 .form-group textarea {
   background: white;
-  border: none;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  /* padding horizontal para o placeholder nao ficar colado */
-  padding: 0.95rem 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  /* padding real para o placeholder nao ficar colado */
+  padding: 1.05rem 1.05rem;
   font-size: 1rem;
   font-family: "Outfit", sans-serif;
   color: var(--text);
-  transition: border-color 0.3s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 /* Placeholder mais claro e elegante (sem perder contraste) */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(26, 26, 26, 0.48);
+  color: rgba(17, 17, 17, 0.34);
   opacity: 1; /* Safari */
 }
 
 .form-group input:focus::placeholder,
 .form-group textarea:focus::placeholder {
-  color: rgba(26, 26, 26, 0.35);
+  color: rgba(17, 17, 17, 0.28);
 }
 
 .form-group input:focus,
@@ -1294,6 +1325,7 @@ header,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(255, 54, 54, 0.12);
 }
 
 .form-group textarea {

@@ -35,40 +35,11 @@
     })
   }
 
-  // ===== Header theme (dark/light) by section =====
-  function setHeaderTheme(theme) {
-    if (!header) return
-
-    header.classList.toggle("header--dark", theme === "light")
-    header.classList.toggle("header--light", theme === "light")
-  }
-
-  // default theme
-  setHeaderTheme("dark")
-
-  // Observe sections and footer; expects data-header="dark|light"
-  const themedTargets = document.querySelectorAll("main section, footer")
-  if (header && themedTargets.length) {
-    const themeObserver = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0),
-          )[0]
-
-        if (!visible) return
-
-        const theme = visible.target.getAttribute("data-header")
-        if (theme === "light" || theme === "dark") setHeaderTheme(theme)
-      },
-      {
-        threshold: [0.15, 0.25, 0.35, 0.5],
-        rootMargin: "-10% 0px -70% 0px",
-      },
-    )
-
-    themedTargets.forEach((el) => themeObserver.observe(el))
+  // ===== Header: sempre claro (fundo branco + texto escuro) =====
+  // Mantemos o JS simples e evitamos trocar classes conforme o scroll.
+  if (header) {
+    header.classList.remove("header--dark")
+    header.classList.add("header--light")
   }
 
   // ===== Mobile drawer =====
@@ -165,15 +136,47 @@
     })
   }
 
-  // ===== Form feedback (fake submit) =====
+  // ===== Form submit: envia para WhatsApp + Email =====
   if (form && feedback) {
     form.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      // simple client-side feedback
+      const nome = (document.querySelector("#nome")?.value || "").trim()
+      const email = (document.querySelector("#email")?.value || "").trim()
+      const whats = (document.querySelector("#whats")?.value || "").trim()
+      const segmento = (document.querySelector("#segmento")?.value || "").trim()
+      const servico = (document.querySelector("#servico")?.value || "").trim()
+      const mensagem = (
+        document.querySelector("#mensagem")?.value || ""
+      ).trim()
+
+      const WHATSAPP_NUMBER = "5577981472959"
+      const EMAIL_TO = "contato@geisacarrilho.com"
+
+      // Monta uma mensagem bonita (curta e objetiva)
+      const linhas = [
+        "Olá! Vim pelo seu site 🙂",
+        nome ? `Nome: ${nome}` : null,
+        email ? `Email: ${email}` : null,
+        whats ? `WhatsApp: ${whats}` : null,
+        segmento ? `Segmento: ${segmento}` : null,
+        servico ? `Serviço: ${servico}` : null,
+        mensagem ? `\nMensagem:\n${mensagem}` : null,
+      ].filter(Boolean)
+
+      const texto = linhas.join("\n")
+
+      // 1) WhatsApp (abre nova aba)
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`
+      window.open(waUrl, "_blank", "noopener,noreferrer")
+
+      // 2) Email (abre app de email do usuário)
+      const subject = "Novo contato pelo site"
+      const mailto = `mailto:${encodeURIComponent(EMAIL_TO)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(texto)}`
+      window.location.href = mailto
+
       feedback.textContent =
-        "Mensagem enviada com sucesso! Entrarei em contato em breve."
-      form.reset()
+        "Abrindo WhatsApp e Email para enviar sua mensagem. Se não abrir, verifique bloqueador de pop-ups."
     })
   }
 })()
