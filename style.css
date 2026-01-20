@@ -1311,13 +1311,13 @@ header,
 /* Placeholder mais claro e elegante (sem perder contraste) */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(17, 17, 17, 0.34);
+  color: rgba(17, 17, 17, 0.22);
   opacity: 1; /* Safari */
 }
 
 .form-group input:focus::placeholder,
 .form-group textarea:focus::placeholder {
-  color: rgba(17, 17, 17, 0.28);
+  color: rgba(17, 17, 17, 0.18);
 }
 
 .form-group input:focus,
@@ -1444,14 +1444,29 @@ header,
 @media (max-width: 1024px) {
   .hero {
     grid-template-columns: 1fr;
+    min-height: auto;
   }
 
   .hero-right {
-    display: none;
+    display: flex;
+    min-height: 52vh;
+    padding: 3.5rem 1.75rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease 1.05s forwards;
   }
 
   .hero-left {
     padding: 9rem 3rem 6rem;
+  }
+
+  /* Ajustes do bloco vermelho no mobile/tablet */
+  .hero-visual-text {
+    font-size: 42vw;
+  }
+
+  .hero-phone {
+    width: 240px;
+    height: 480px;
   }
 
   .section-header {
@@ -1500,6 +1515,26 @@ header,
 
   .hero-title {
     font-size: 3.5rem;
+  }
+
+  /* Evita corte/overflow dos botoes no Hero no celular */
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+  }
+
+  .hero-left {
+    padding: 8rem 1.25rem 4.5rem;
   }
 
   .stats {

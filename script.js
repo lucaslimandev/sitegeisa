@@ -136,7 +136,7 @@
     })
   }
 
-  // ===== Form submit: envia para WhatsApp + Email =====
+  // ===== Form submit: envia para WhatsApp + Email (automatico via FormSubmit) =====
   if (form && feedback) {
     form.addEventListener("submit", (e) => {
       e.preventDefault()
@@ -146,16 +146,16 @@
       const whats = (document.querySelector("#whats")?.value || "").trim()
       const segmento = (document.querySelector("#segmento")?.value || "").trim()
       const servico = (document.querySelector("#servico")?.value || "").trim()
-      const mensagem = (
-        document.querySelector("#mensagem")?.value || ""
-      ).trim()
+      const mensagem = (document.querySelector("#mensagem")?.value || "").trim()
 
       const WHATSAPP_NUMBER = "5577981472959"
-      const EMAIL_TO = "contato@geisacarrilho.com"
+      // Troque pelo email que vai receber as notificacoes
+      // (precisa existir; no FormSubmit voce confirma uma unica vez).
+      const EMAIL_TO = "lucaslimadonasc@gmail.com"
 
       // Monta uma mensagem bonita (curta e objetiva)
       const linhas = [
-        "Olá! Vim pelo seu site 🙂",
+        "Olá! Vim pelo seu site",
         nome ? `Nome: ${nome}` : null,
         email ? `Email: ${email}` : null,
         whats ? `WhatsApp: ${whats}` : null,
@@ -170,13 +170,37 @@
       const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`
       window.open(waUrl, "_blank", "noopener,noreferrer")
 
-      // 2) Email (abre app de email do usuário)
-      const subject = "Novo contato pelo site"
-      const mailto = `mailto:${encodeURIComponent(EMAIL_TO)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(texto)}`
-      window.location.href = mailto
+      // 2) Email automatico (sem depender do email do cliente): FormSubmit (serverless)
+      // Docs: https://formsubmit.co/
+      // Observacao: na primeira vez, o FormSubmit manda um email para CONFIRMAR o endereco.
+      const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(EMAIL_TO)}`
 
-      feedback.textContent =
-        "Abrindo WhatsApp e Email para enviar sua mensagem. Se não abrir, verifique bloqueador de pop-ups."
+      const fd = new FormData()
+      fd.append("Nome", nome)
+      fd.append("Email", email)
+      fd.append("WhatsApp", whats)
+      fd.append("Segmento", segmento)
+      fd.append("Servico", servico)
+      fd.append("Mensagem", mensagem)
+      fd.append("_subject", "Novo contato pelo site")
+      fd.append("_captcha", "false")
+      fd.append("_template", "table")
+
+      fetch(endpoint, {
+        method: "POST",
+        body: fd,
+        headers: { Accept: "application/json" },
+      })
+        .then(async (r) => {
+          if (!r.ok) throw new Error("Falha ao enviar")
+          feedback.textContent =
+            "Mensagem preparada no WhatsApp e enviada por email. Se o WhatsApp não abriu, verifique o bloqueador de pop-ups."
+          form.reset()
+        })
+        .catch(() => {
+          feedback.textContent =
+            "WhatsApp aberto. Nao consegui enviar o email automatico agora (bloqueio de rede ou email nao confirmado no FormSubmit)."
+        })
     })
   }
 })()
