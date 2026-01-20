@@ -1,0 +1,1792 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geisa Carrilho | Social Media & Videomaker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-light: #faf8f5;
+        --bg-cream: #f5f2ed;
+        --red: #c41e3a;
+        --red-dark: #9a1830;
+        --red-light: #e63950;
+        --gold: #d4a853;
+        --gold-light: #e8c87a;
+        --black: #0f0f0f;
+        --text: #1a1a1a;
+        --text-muted: #666666;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--bg-light);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Animated Background Grid */
+      .bg-grid {
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(196, 30, 58, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(196, 30, 58, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Custom Cursor */
+      .cursor {
+        width: 16px;
+        height: 16px;
+        background: var(--red);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.2s ease;
+      }
+
+      .cursor-follower {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--red);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transition:
+          transform 0.3s ease,
+          width 0.3s ease,
+          height 0.3s ease;
+      }
+
+      .cursor.hover {
+        transform: scale(3);
+      }
+
+      .cursor-follower.hover {
+        width: 60px;
+        height: 60px;
+        border-color: var(--gold);
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1.5rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        mix-blend-mode: difference;
+      }
+
+      .logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        color: white;
+        text-decoration: none;
+        letter-spacing: 0.1em;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo-dot {
+        width: 12px;
+        height: 12px;
+        background: var(--gold);
+        border-radius: 50%;
+        animation: pulse-dot 2s infinite;
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.3);
+          opacity: 0.7;
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 3rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      .nav-cta {
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.8rem 1.5rem;
+        border: 1px solid white;
+        transition: all 0.3s ease;
+      }
+
+      .nav-cta:hover {
+        background: white;
+        color: var(--black);
+      }
+
+      /* Hero Section - Split Design */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+      }
+
+      .hero-left {
+        background: var(--bg-light);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8rem 4rem 4rem 6rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeSlideUp 0.8s ease 0.3s forwards;
+      }
+
+      .hero-tag-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        animation: blink 2s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hero-tag-text {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+      }
+
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(4rem, 10vw, 8rem);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        margin-bottom: 2rem;
+      }
+
+      .hero-title .line {
+        display: block;
+        overflow: hidden;
+      }
+
+      .hero-title .line span {
+        display: block;
+        transform: translateY(100%);
+        animation: slideUp 0.8s ease forwards;
+      }
+
+      .hero-title .line:nth-child(1) span {
+        animation-delay: 0.4s;
+      }
+      .hero-title .line:nth-child(2) span {
+        animation-delay: 0.5s;
+        color: var(--red);
+      }
+      .hero-title .line:nth-child(3) span {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes slideUp {
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      .hero-description {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        max-width: 400px;
+        line-height: 1.8;
+        margin-bottom: 3rem;
+        opacity: 0;
+        animation: fadeSlideUp 0.8s ease 0.8s forwards;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1.5rem;
+        opacity: 0;
+        animation: fadeSlideUp 0.8s ease 1s forwards;
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn-primary {
+        background: var(--red);
+        color: white;
+        padding: 1.2rem 2.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.05em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--red-dark);
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+      }
+
+      .btn-primary:hover::before {
+        transform: translateX(0);
+      }
+
+      .btn-primary span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+      }
+
+      .btn-secondary {
+        color: var(--text);
+        padding: 1.2rem 2.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        letter-spacing: 0.05em;
+        border: 1px solid var(--text);
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        background: var(--text);
+        color: white;
+      }
+
+      .hero-right {
+        background: var(--red);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-visual-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 25vw;
+        color: rgba(255, 255, 255, 0.05);
+        position: absolute;
+        white-space: nowrap;
+        animation: scrollText 20s linear infinite;
+      }
+
+      @keyframes scrollText {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .hero-phone {
+        width: 280px;
+        height: 550px;
+        background: var(--black);
+        border-radius: 40px;
+        position: relative;
+        transform: rotate(-5deg);
+        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+        animation: floatPhone 6s ease-in-out infinite;
+        z-index: 2;
+      }
+
+      @keyframes floatPhone {
+        0%,
+        100% {
+          transform: rotate(-5deg) translateY(0);
+        }
+        50% {
+          transform: rotate(-5deg) translateY(-20px);
+        }
+      }
+
+      .hero-phone::before {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 25px;
+        background: #1a1a1a;
+        border-radius: 15px;
+      }
+
+      .phone-screen {
+        position: absolute;
+        inset: 10px;
+        background: linear-gradient(
+          180deg,
+          var(--red-light) 0%,
+          var(--red) 100%
+        );
+        border-radius: 30px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 50px 15px 15px;
+        gap: 12px;
+      }
+
+      .screen-block {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        animation: shimmer 2s ease-in-out infinite;
+      }
+
+      .screen-block:nth-child(1) {
+        height: 45%;
+        animation-delay: 0s;
+      }
+      .screen-block:nth-child(2) {
+        height: 15%;
+        animation-delay: 0.2s;
+      }
+      .screen-block:nth-child(3) {
+        height: 15%;
+        animation-delay: 0.4s;
+      }
+      .screen-block:nth-child(4) {
+        height: 20%;
+        animation-delay: 0.6s;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 3rem;
+        left: 6rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        opacity: 0;
+        animation: fadeSlideUp 0.8s ease 1.2s forwards;
+      }
+
+      .scroll-line {
+        width: 50px;
+        height: 1px;
+        background: var(--text-muted);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .scroll-line::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--red);
+        animation: scrollLine 2s ease-in-out infinite;
+      }
+
+      @keyframes scrollLine {
+        0% {
+          left: -100%;
+        }
+        50% {
+          left: 0;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .scroll-text {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+      }
+
+      /* Stats Section */
+      .stats {
+        padding: 6rem 4rem;
+        background: var(--black);
+        display: flex;
+        justify-content: center;
+        gap: 8rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stats::before {
+        content: "RESULTADOS";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 15vw;
+        color: rgba(255, 255, 255, 0.02);
+        white-space: nowrap;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .stat {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .stat-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 5rem;
+        color: var(--red);
+        line-height: 1;
+      }
+
+      .stat-label {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-top: 0.5rem;
+      }
+
+      /* Services Section */
+      .services {
+        padding: 10rem 4rem;
+        position: relative;
+      }
+
+      .section-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 6rem;
+        align-items: end;
+      }
+
+      .section-tag {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--red);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .section-tag::before {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: var(--red);
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 7vw, 5rem);
+        line-height: 0.95;
+        letter-spacing: 0.02em;
+      }
+
+      .section-intro {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+
+      .service-card {
+        background: white;
+        padding: 3rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        background: var(--red);
+        transition: height 0.5s ease;
+      }
+
+      .service-card:hover::before {
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(196, 30, 58, 0.1);
+      }
+
+      .service-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        color: rgba(196, 30, 58, 0.1);
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        transition: color 0.5s ease;
+      }
+
+      .service-card:hover .service-number {
+        color: rgba(196, 30, 58, 0.2);
+      }
+
+      .service-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-light) 100%
+        );
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .service-card h3 {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .service-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+      }
+
+      .service-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .service-tags span {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        background: rgba(196, 30, 58, 0.08);
+        color: var(--red);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* Portfolio Section */
+      .portfolio {
+        padding: 10rem 0;
+        background: var(--bg-cream);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .portfolio .section-header {
+        padding: 0 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .portfolio-marquee {
+        display: flex;
+        gap: 2rem;
+        animation: marquee 30s linear infinite;
+        width: max-content;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .portfolio-item {
+        width: 350px;
+        height: 450px;
+        background: white;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      .portfolio-item:nth-child(odd) {
+        margin-top: 3rem;
+      }
+
+      .portfolio-bg {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        transition: transform 0.6s ease;
+      }
+
+      .portfolio-item:nth-child(1) .portfolio-bg,
+      .portfolio-item:nth-child(8) .portfolio-bg {
+        background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+      }
+      .portfolio-item:nth-child(2) .portfolio-bg,
+      .portfolio-item:nth-child(9) .portfolio-bg {
+        background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+      }
+      .portfolio-item:nth-child(3) .portfolio-bg,
+      .portfolio-item:nth-child(10) .portfolio-bg {
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      }
+      .portfolio-item:nth-child(4) .portfolio-bg,
+      .portfolio-item:nth-child(11) .portfolio-bg {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      }
+      .portfolio-item:nth-child(5) .portfolio-bg,
+      .portfolio-item:nth-child(12) .portfolio-bg {
+        background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+      }
+      .portfolio-item:nth-child(6) .portfolio-bg,
+      .portfolio-item:nth-child(13) .portfolio-bg {
+        background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+      }
+      .portfolio-item:nth-child(7) .portfolio-bg,
+      .portfolio-item:nth-child(14) .portfolio-bg {
+        background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%);
+      }
+
+      .portfolio-item:hover .portfolio-bg {
+        transform: scale(1.1);
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 50%,
+          rgba(0, 0, 0, 0.8) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .portfolio-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .portfolio-item:hover .portfolio-content {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .portfolio-content h4 {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+
+      .portfolio-content span {
+        font-size: 0.85rem;
+        color: var(--gold);
+      }
+
+      /* Process Section */
+      .process {
+        padding: 10rem 4rem;
+        background: var(--red);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .process::before {
+        content: "PROCESSO";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20vw;
+        color: rgba(255, 255, 255, 0.03);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+      }
+
+      .process .section-tag {
+        color: var(--gold);
+      }
+
+      .process .section-tag::before {
+        background: var(--gold);
+      }
+
+      .process .section-title {
+        color: white;
+      }
+
+      .process .section-header {
+        margin-bottom: 5rem;
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .process-step {
+        padding: 3rem 2rem;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .process-step:first-child {
+        border-left: none;
+      }
+
+      .step-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 6rem;
+        color: rgba(255, 255, 255, 0.1);
+        line-height: 1;
+        margin-bottom: 2rem;
+      }
+
+      .step-content h3 {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .step-content p {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.7;
+      }
+
+      /* CTA Section */
+      .cta {
+        padding: 10rem 4rem;
+        background: var(--black);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-bg-text {
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 15vw;
+        color: rgba(255, 255, 255, 0.02);
+        white-space: nowrap;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        color: white;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta h2 em {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--red);
+      }
+
+      .cta p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.5);
+        max-width: 500px;
+        margin: 0 auto 3rem;
+      }
+
+      .cta .btn-primary {
+        background: var(--red);
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 10rem 4rem;
+        background: var(--bg-light);
+      }
+
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 6rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .contact-info h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        line-height: 1;
+        margin-bottom: 2rem;
+      }
+
+      .contact-info p {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        margin-bottom: 3rem;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--text);
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+
+      .contact-link:hover {
+        color: var(--red);
+      }
+
+      .contact-link-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        background: white;
+        border: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+        font-size: 1rem;
+        font-family: "Outfit", sans-serif;
+        color: var(--text);
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--red);
+      }
+
+      .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .form-submit {
+        background: var(--red);
+        color: white;
+        border: none;
+        padding: 1.2rem 3rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        align-self: flex-start;
+        transition: all 0.3s ease;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .form-submit:hover {
+        background: var(--red-dark);
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
+      footer {
+        padding: 4rem;
+        background: var(--black);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      footer .logo {
+        color: white;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 3rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .footer-social a {
+        width: 45px;
+        height: 45px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .footer-social a:hover {
+        background: var(--red);
+        border-color: var(--red);
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-right {
+          display: none;
+        }
+
+        .hero-left {
+          padding: 10rem 3rem 6rem;
+        }
+
+        .section-header {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .process-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .process-step {
+          border-left: none;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .process-step:nth-child(-n + 2) {
+          border-top: none;
+        }
+
+        .contact-container {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem 2rem;
+        }
+
+        .nav-links,
+        .nav-cta {
+          display: none;
+        }
+
+        .hero-title {
+          font-size: 3.5rem;
+        }
+
+        .hero-scroll {
+          display: none;
+        }
+
+        .stats {
+          flex-direction: column;
+          gap: 3rem;
+        }
+
+        .services-grid,
+        .process-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .process-step {
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .process-step:first-child {
+          border-top: none;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        footer {
+          flex-direction: column;
+          gap: 2rem;
+          text-align: center;
+        }
+
+        .cursor,
+        .cursor-follower {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav>
+      <a href="#" class="logo">
+        <span class="logo-dot"></span>
+        GEISA CARRILHO
+      </a>
+      <ul class="nav-links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#processo">Processo</a></li>
+      </ul>
+      <a href="#contato" class="nav-cta">Começar Projeto</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+        </div>
+        <h1 class="hero-title">
+          <span class="line"><span>Sua marca</span></span>
+          <span class="line"><span>vista, lembrada</span></span>
+          <span class="line"><span>e desejada</span></span>
+        </h1>
+        <p class="hero-description">
+          Social Media & Videomaker. Conteúdo estratégico para marcas que querem
+          se destacar no digital.
+        </p>
+        <div class="hero-buttons">
+          <a
+            href="https://instagram.com/geisa.mobile"
+            target="_blank"
+            class="btn-primary"
+          >
+            <span>Fale Comigo</span>
+            <span>→</span>
+          </a>
+          <a href="#portfolio" class="btn-secondary">Ver Trabalhos</a>
+        </div>
+        <div class="hero-scroll">
+          <div class="scroll-line"></div>
+          <span class="scroll-text">Scroll para explorar</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-visual-text">
+          SOCIAL MEDIA • VIDEOMAKER • CONTEÚDO • ESTRATÉGIA • SOCIAL MEDIA •
+          VIDEOMAKER • CONTEÚDO • ESTRATÉGIA •
+        </div>
+        <div class="hero-phone">
+          <div class="phone-screen">
+            <div class="screen-block"></div>
+            <div class="screen-block"></div>
+            <div class="screen-block"></div>
+            <div class="screen-block"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Marcas Atendidas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2M+</div>
+        <div class="stat-label">Visualizações Geradas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Conteúdos Criados</div>
+      </div>
+    </section>
+
+    <section class="services" id="servicos">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Serviços</span>
+          <h2 class="section-title">O que eu posso<br />fazer por você</h2>
+        </div>
+        <p class="section-intro">
+          Cada projeto é único. Desenvolvo soluções personalizadas que combinam
+          estratégia, criatividade e resultados mensuráveis para sua marca
+          crescer no digital.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-number">01</div>
+          <div class="service-icon">📱</div>
+          <h3>Gestão de Redes</h3>
+          <p>
+            Gerenciamento completo das suas redes sociais com estratégia,
+            planejamento e execução profissional.
+          </p>
+          <div class="service-tags">
+            <span>Instagram</span>
+            <span>TikTok</span>
+            <span>LinkedIn</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-number">02</div>
+          <div class="service-icon">🎬</div>
+          <h3>Produção de Vídeos</h3>
+          <p>
+            Criação de vídeos profissionais otimizados para cada plataforma,
+            desde a gravação até a edição final.
+          </p>
+          <div class="service-tags">
+            <span>Reels</span>
+            <span>Stories</span>
+            <span>Shorts</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-number">03</div>
+          <div class="service-icon">✨</div>
+          <h3>Criação de Conteúdo</h3>
+          <p>
+            Desenvolvimento de conteúdo estratégico que engaja, educa e converte
+            seu público-alvo.
+          </p>
+          <div class="service-tags">
+            <span>Carrosséis</span>
+            <span>Posts</span>
+            <span>Legendas</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-number">04</div>
+          <div class="service-icon">📊</div>
+          <h3>Estratégia Digital</h3>
+          <p>
+            Planejamento estratégico personalizado com calendário editorial e
+            análise de métricas.
+          </p>
+          <div class="service-tags">
+            <span>Planejamento</span>
+            <span>Métricas</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-number">05</div>
+          <div class="service-icon">🎨</div>
+          <h3>Identidade Visual</h3>
+          <p>
+            Criação de direção de arte para suas redes que traduz a essência da
+            sua marca.
+          </p>
+          <div class="service-tags">
+            <span>Feed</span>
+            <span>Templates</span>
+            <span>Destaques</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-number">06</div>
+          <div class="service-icon">🚀</div>
+          <h3>Consultoria</h3>
+          <p>
+            Sessões de consultoria para alinhar sua comunicação digital aos
+            objetivos do seu negócio.
+          </p>
+          <div class="service-tags">
+            <span>Mentoria</span>
+            <span>Treinamento</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Portfólio</span>
+          <h2 class="section-title">Projetos que<br />fizeram a diferença</h2>
+        </div>
+      </div>
+      <div class="portfolio-marquee">
+        <div class="portfolio-item">
+          <div class="portfolio-bg">👗</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>E-commerce Moda</h4>
+            <span>Reels + Estratégia</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🍔</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Restaurante Local</h4>
+            <span>TikTok + Instagram</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">💼</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Coaching Executivo</h4>
+            <span>LinkedIn + Conteúdo</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🏋️</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Personal Trainer</h4>
+            <span>Social Media Completo</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🎓</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Infoproduto</h4>
+            <span>Lançamento Digital</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🏠</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Imobiliária</h4>
+            <span>Vídeos + Stories</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">💄</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Salão de Beleza</h4>
+            <span>Conteúdo + Tráfego</span>
+          </div>
+        </div>
+        <!-- Duplicados para loop infinito -->
+        <div class="portfolio-item">
+          <div class="portfolio-bg">👗</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>E-commerce Moda</h4>
+            <span>Reels + Estratégia</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🍔</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Restaurante Local</h4>
+            <span>TikTok + Instagram</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">💼</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Coaching Executivo</h4>
+            <span>LinkedIn + Conteúdo</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🏋️</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Personal Trainer</h4>
+            <span>Social Media Completo</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🎓</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Infoproduto</h4>
+            <span>Lançamento Digital</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">🏠</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Imobiliária</h4>
+            <span>Vídeos + Stories</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-bg">💄</div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-content">
+            <h4>Salão de Beleza</h4>
+            <span>Conteúdo + Tráfego</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="processo">
+      <div class="section-header">
+        <div>
+          <span class="section-tag">Processo</span>
+          <h2 class="section-title">Como trabalhamos<br />juntos</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Diagnóstico</h3>
+            <p>
+              Entendo seu negócio, público e objetivos. Analiso sua presença
+              atual e identifico oportunidades de crescimento.
+            </p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Estratégia</h3>
+            <p>
+              Desenvolvo um plano personalizado com calendário editorial, tipos
+              de conteúdo e métricas de sucesso.
+            </p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Produção</h3>
+            <p>
+              Crio os conteúdos com qualidade profissional, desde a gravação até
+              a edição final otimizada.
+            </p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h3>Otimização</h3>
+            <p>
+              Acompanho os resultados, ajusto a estratégia e garanto que sua
+              marca cresça de forma consistente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-bg-text">TRANSFORMAÇÃO</div>
+      <div class="cta-content">
+        <h2>Pronta para <em>transformar</em> sua presença digital?</h2>
+        <p>
+          Vamos criar conteúdo estratégico que faz sua marca ser vista, lembrada
+          e desejada.
+        </p>
+        <a
+          href="https://instagram.com/geisa.mobile"
+          target="_blank"
+          class="btn-primary"
+        >
+          <span>Fale Comigo no Instagram</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="contact-container">
+        <div class="contact-info">
+          <span class="section-tag">Contato</span>
+          <h2>Vamos conversar sobre seu projeto</h2>
+          <p>
+            Preencha o formulário ao lado ou entre em contato diretamente pelos
+            canais abaixo. Respondo em até 24 horas.
+          </p>
+          <div class="contact-links">
+            <a
+              href="https://instagram.com/geisa.mobile"
+              target="_blank"
+              class="contact-link"
+            >
+              <span class="contact-link-icon">📸</span>
+              @geisa.mobile
+            </a>
+            <a href="#" class="contact-link">
+              <span class="contact-link-icon">💬</span>
+              WhatsApp
+            </a>
+            <a href="#" class="contact-link">
+              <span class="contact-link-icon">✉️</span>
+              contato@geisamobile.com
+            </a>
+          </div>
+        </div>
+        <form class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" placeholder="Seu nome completo" />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="seu@email.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>WhatsApp</label>
+              <input type="tel" placeholder="(00) 00000-0000" />
+            </div>
+            <div class="form-group">
+              <label>Segmento</label>
+              <select>
+                <option value="">Selecione seu segmento</option>
+                <option value="saude">Saúde e Bem-estar</option>
+                <option value="gastronomia">Gastronomia</option>
+                <option value="moda">Moda e Beleza</option>
+                <option value="servicos">Serviços Profissionais</option>
+                <option value="varejo">Varejo</option>
+                <option value="educacao">Educação</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Serviço de interesse</label>
+            <select>
+              <option value="">O que você precisa?</option>
+              <option value="gestao">Gestão de Redes Sociais</option>
+              <option value="videos">Produção de Vídeos</option>
+              <option value="conteudo">Criação de Conteúdo</option>
+              <option value="completo">Pacote Completo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Conte mais sobre seu projeto</label>
+            <textarea
+              placeholder="Descreva seus objetivos, desafios atuais e o que espera alcançar..."
+            ></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar Mensagem →</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <a href="#" class="logo">
+        <span class="logo-dot"></span>
+        GEISA.MOBILE
+      </a>
+      <div class="footer-links">
+        <a href="#servicos">Serviços</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#processo">Processo</a>
+        <a href="#contato">Contato</a>
+      </div>
+      <div class="footer-social">
+        <a
+          href="https://instagram.com/geisa.mobile"
+          target="_blank"
+          title="Instagram"
+          >📸</a
+        >
+        <a href="#" title="TikTok">🎵</a>
+        <a href="#" title="LinkedIn">💼</a>
+        <a href="#" title="WhatsApp">💬</a>
+      </div>
+    </footer>
+
+    <script>
+      // Custom cursor
+      const cursor = document.querySelector(".cursor")
+      const follower = document.querySelector(".cursor-follower")
+
+      let mouseX = 0,
+        mouseY = 0
+      let cursorX = 0,
+        cursorY = 0
+      let followerX = 0,
+        followerY = 0
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX
+        mouseY = e.clientY
+      })
+
+      function animate() {
+        // Cursor principal - resposta rápida
+        cursorX += (mouseX - cursorX) * 0.2
+        cursorY += (mouseY - cursorY) * 0.2
+        cursor.style.left = cursorX - 8 + "px"
+        cursor.style.top = cursorY - 8 + "px"
+
+        // Follower - resposta mais lenta para efeito trail
+        followerX += (mouseX - followerX) * 0.1
+        followerY += (mouseY - followerY) * 0.1
+        follower.style.left = followerX - 20 + "px"
+        follower.style.top = followerY - 20 + "px"
+
+        requestAnimationFrame(animate)
+      }
+      animate()
+
+      document
+        .querySelectorAll("a, button, .portfolio-item, .service-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.classList.add("hover")
+            follower.classList.add("hover")
+          })
+          el.addEventListener("mouseleave", () => {
+            cursor.classList.remove("hover")
+            follower.classList.remove("hover")
+          })
+        })
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault()
+          const target = document.querySelector(this.getAttribute("href"))
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            })
+          }
+        })
+      })
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1"
+            entry.target.style.transform = "translateY(0)"
+          }
+        })
+      }, observerOptions)
+
+      document
+        .querySelectorAll(".service-card, .process-step, .stat")
+        .forEach((el) => {
+          el.style.opacity = "0"
+          el.style.transform = "translateY(40px)"
+          el.style.transition = "opacity 0.8s ease, transform 0.8s ease"
+          observer.observe(el)
+        })
+
+      // Pause marquee on hover
+      const marquee = document.querySelector(".portfolio-marquee")
+      marquee.addEventListener("mouseenter", () => {
+        marquee.style.animationPlayState = "paused"
+      })
+      marquee.addEventListener("mouseleave", () => {
+        marquee.style.animationPlayState = "running"
+      })
+
+      // Form submission
+      document
+        .querySelector(".contact-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault()
+          alert("Mensagem enviada com sucesso! Entrarei em contato em breve.")
+        })
+    </script>
+  </body>
+</html>
