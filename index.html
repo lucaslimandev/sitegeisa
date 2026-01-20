@@ -28,10 +28,13 @@
 
     <div class="bg-grid" aria-hidden="true"></div>
 
-    <!-- Header: sempre claro (fundo branco + texto escuro) -->
-    <header class="site-header header--light" role="banner">
+    <!-- Header: tema troca via JS entre header--dark e header--light -->
+    <header class="site-header header--dark" role="banner">
       <nav class="nav" aria-label="Navegação principal">
-        <a class="logo" href="#top" aria-label="Voltar ao topo"><img src="./img/gc-logo.svg" class="logo-mark" alt="" aria-hidden="true" /><span class="logo-text">GEISA CARRILHO</span></a>
+        <a class="logo" href="#top" aria-label="Voltar ao topo">
+          <span class="logo-dot" aria-hidden="true"></span>
+          GEISA CARRILHO
+        </a>
 
         <button
           class="nav-toggle"
@@ -55,7 +58,10 @@
         <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
           <div class="nav-drawer-panel" role="dialog" aria-label="Menu">
             <div class="nav-drawer-head">
-              <a class="logo" href="#top" aria-label="Voltar ao topo"><img src="./img/gc-logo.svg" class="logo-mark" alt="" aria-hidden="true" /><span class="logo-text">GEISA CARRILHO</span></a>
+              <a class="logo" href="#top" aria-label="Voltar ao topo">
+                <span class="logo-dot" aria-hidden="true"></span>
+                GEISA CARRILHO
+              </a>
 
               <button class="nav-close" type="button">
                 <span class="sr-only">Fechar menu</span>
@@ -92,36 +98,23 @@
           </p>
 
           <div class="hero-buttons">
-            <!-- Instagram NÃO muda -->
             <a
-              href="https://instagram.com/geisa.mobile"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-primary"
-            >
-              <span>Fale Comigo</span>
-              <span aria-hidden="true">→</span>
-            </a>
+            href="https://wa.me/5577981472959"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary btn-whatsapp"
+            aria-label="Falar no WhatsApp"
+          >
+            <img
+              class="btn-icon"
+              src="img/whatsapp-svgrepo-com.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>WhatsApp</span>
+          </a>
 
             <a href="#portfolio" class="btn-secondary">Ver Trabalhos</a>
-          </div>
-
-          <!-- Removido: "Scroll para explorar" -->
-        </div>
-
-        <div class="hero-right" aria-hidden="true">
-          <div class="hero-visual-text">
-            SOCIAL MEDIA • VIDEOMAKER • CONTEÚDO • ESTRATÉGIA • SOCIAL MEDIA •
-            VIDEOMAKER • CONTEÚDO • ESTRATÉGIA •
-          </div>
-
-          <div class="hero-phone">
-            <div class="phone-screen">
-              <div class="screen-block"></div>
-              <div class="screen-block"></div>
-              <div class="screen-block"></div>
-              <div class="screen-block"></div>
-            </div>
           </div>
         </div>
       </section>
@@ -170,6 +163,7 @@
         </div>
 
         <div class="services-grid">
+
           <article class="service-card">
             <div class="service-number">01</div>
             <div class="service-icon" aria-hidden="true">📱</div>
@@ -182,6 +176,7 @@
               <span>Instagram</span><span>TikTok</span><span>LinkedIn</span>
             </div>
           </article>
+
 
           <article class="service-card">
             <div class="service-number">02</div>
@@ -196,6 +191,7 @@
             </div>
           </article>
 
+
           <article class="service-card">
             <div class="service-number">03</div>
             <div class="service-icon" aria-hidden="true">✨</div>
@@ -209,6 +205,7 @@
             </div>
           </article>
 
+
           <article class="service-card">
             <div class="service-number">04</div>
             <div class="service-icon" aria-hidden="true">📊</div>
@@ -219,32 +216,6 @@
             </p>
             <div class="service-tags">
               <span>Planejamento</span><span>Métricas</span>
-            </div>
-          </article>
-
-          <article class="service-card">
-            <div class="service-number">05</div>
-            <div class="service-icon" aria-hidden="true">🎨</div>
-            <h3>Identidade Visual</h3>
-            <p>
-              Criação de direção de arte para suas redes que traduz a essência
-              da sua marca.
-            </p>
-            <div class="service-tags">
-              <span>Feed</span><span>Templates</span><span>Destaques</span>
-            </div>
-          </article>
-
-          <article class="service-card">
-            <div class="service-number">06</div>
-            <div class="service-icon" aria-hidden="true">🚀</div>
-            <h3>Consultoria</h3>
-            <p>
-              Sessões de consultoria para alinhar sua comunicação digital aos
-              objetivos do seu negócio.
-            </p>
-            <div class="service-tags">
-              <span>Mentoria</span><span>Treinamento</span>
             </div>
           </article>
         </div>
@@ -467,7 +438,7 @@
         <div class="cta-bg-text" aria-hidden="true">TRANSFORMAÇÃO</div>
         <div class="cta-content">
           <h2 id="cta-title">
-            Pronta para <em>transformar</em> sua presença digital?
+            Pronto para <em>transformar</em> sua presença digital?
           </h2>
           <p>
             Vamos criar conteúdo estratégico que faz sua marca ser vista,
@@ -476,13 +447,19 @@
 
           <!-- Instagram NÃO muda -->
           <a
-            href="https://instagram.com/geisa.mobile"
+            href="https://wa.me/5577981472959"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-primary"
+            class="btn-primary btn-whatsapp"
+            aria-label="Falar no WhatsApp"
           >
-            <span>Fale Comigo no Instagram</span>
-            <span aria-hidden="true">→</span>
+            <img
+              class="btn-icon"
+              src="img/whatsapp-svgrepo-com.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>WhatsApp</span>
           </a>
         </div>
       </section>
@@ -511,27 +488,17 @@
                 rel="noopener noreferrer"
                 class="contact-link"
               >
-                <span class="contact-link-icon" aria-hidden="true"><img src="./img/instagram-svgrepo-com.svg" alt="" class="icon-svg" /></span>
+                <span class="contact-link-icon" aria-hidden="true">📸</span>
                 @geisa.mobile
               </a>
 
-              <a
-                href="https://wa.me/5577981472959"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-link"
-                aria-label="Abrir WhatsApp"
-              >
-                <span class="contact-link-icon" aria-hidden="true"><img src="./img/whatsapp-svgrepo-com.svg" alt="" class="icon-svg" /></span>
+              <a href="https://wa.me/5577981472959" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <span class="contact-link-icon" aria-hidden="true">💬</span>
                 WhatsApp
               </a>
 
-              <a
-                href="mailto:contato@geisacarrilho.com"
-                class="contact-link"
-                aria-label="Enviar email"
-              >
-                <span class="contact-link-icon" aria-hidden="true"><img src="./img/email-1-svgrepo-com.svg" alt="" class="icon-svg" /></span>
+              <a href="mailto:contato@geisacarrilho.com" class="contact-link">
+                <span class="contact-link-icon" aria-hidden="true">✉️</span>
                 contato@geisacarrilho.com
               </a>
             </div>
@@ -623,7 +590,10 @@
 
     <!-- Footer (fundo escuro -> header light, mas footer já é final; mantém data-header p/ consistência) -->
     <footer class="footer" data-header="light">
-      <a href="#top" class="logo" aria-label="Voltar ao topo"><img src="./img/gc-logo.svg" class="logo-mark" alt="" aria-hidden="true" /><span class="logo-text">GEISA CARRILHO</span></a>
+      <a href="#top" class="logo" aria-label="Voltar ao topo">
+        <span class="logo-dot" aria-hidden="true"></span>
+        GEISA CARRILHO
+      </a>
 
       <div class="footer-links" aria-label="Links do rodapé">
         <a href="#servicos">Serviços</a>
@@ -640,18 +610,11 @@
           rel="noopener noreferrer"
           title="Instagram"
           aria-label="Abrir Instagram"
-          ><img src="./img/instagram-svgrepo-com.svg" alt="" class="social-icon" /></a
+          >📸</a
         >
-        <a href="#" title="TikTok" aria-label="Abrir TikTok"><img src="./img/tiktok-svgrepo-com.svg" alt="" class="social-icon" /></a>
-        <a href="#" title="LinkedIn" aria-label="Abrir LinkedIn"><img src="./img/linkedin.svg" alt="" class="social-icon" /></a>
-        <a
-          href="https://wa.me/5577981472959"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="WhatsApp"
-          aria-label="Abrir WhatsApp"
-          ><img src="./img/whatsapp-svgrepo-com.svg" alt="" class="social-icon"
-        /></a>
+        <a href="#" title="TikTok" aria-label="Abrir TikTok">🎵</a>
+        <a href="#" title="LinkedIn" aria-label="Abrir LinkedIn">💼</a>
+        <a href="#" title="WhatsApp" aria-label="Abrir WhatsApp">💬</a>
       </div>
     </footer>
   </body>

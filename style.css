@@ -176,35 +176,6 @@ textarea:focus-visible {
   background: var(--text);
   color: white;
 }
-
-/* =========================================================
-   Header sempre claro (pedido do cliente)
-   Independente de classes/JS, o header fica com fundo claro e texto escuro.
-   ========================================================= */
-.site-header .nav {
-  background: #ffffff !important;
-  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-.site-header .logo,
-.site-header .nav-links a,
-.site-header .nav-cta,
-.site-header .nav-toggle {
-  color: var(--text) !important;
-}
-
-.site-header .nav-toggle {
-  border-color: rgba(0, 0, 0, 0.25) !important;
-}
-
-.site-header .nav-cta {
-  border-color: var(--text) !important;
-}
-
-.site-header .nav-cta:hover {
-  background: var(--text) !important;
-  color: #fff !important;
-}
 header,
 .nav {
   background: #ffffff;
@@ -234,29 +205,6 @@ header,
   display: flex;
   align-items: center;
   gap: 0.75rem;
-}
-
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-}
-
-.logo-text {
-  line-height: 1;
-}
-
-.icon-svg, .social-icon {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Ícones em botões com fundo escuro/vermelho */
-.contact-link-icon .icon-svg,
-.footer-social .social-icon,
-.footer .logo-mark {
-  filter: brightness(0) invert(1);
 }
 
 .logo-dot {
@@ -443,29 +391,6 @@ header,
   color: var(--text);
 }
 
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-}
-
-.logo-text {
-  line-height: 1;
-}
-
-.icon-svg, .social-icon {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Ícones em botões com fundo escuro/vermelho */
-.contact-link-icon .icon-svg,
-.footer-social .social-icon,
-.footer .logo-mark {
-  filter: brightness(0) invert(1);
-}
-
 .nav-close {
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.25);
@@ -512,7 +437,7 @@ header,
 .hero {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   position: relative;
   z-index: 1;
 }
@@ -522,7 +447,7 @@ header,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8rem 4rem 4rem 6rem;
+  padding: 8rem 1.5rem 4rem 1.5rem; max-width: 1200px; margin: 0 auto;
   position: relative;
   z-index: 2;
 }
@@ -542,8 +467,6 @@ header,
 
 .hero-title .line span {
   display: block;
-  font-size: 1em;
-  font-weight: 400;
   transform: translateY(100%);
   animation: slideUp 0.8s ease forwards;
 }
@@ -629,6 +552,15 @@ header,
 .btn-primary span {
   position: relative;
   z-index: 1;
+}
+
+.btn-primary .btn-icon {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  filter: invert(1);
 }
 
 .btn-primary:hover {
@@ -1298,26 +1230,26 @@ header,
 .form-group select,
 .form-group textarea {
   background: white;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 14px;
-  /* padding real para o placeholder nao ficar colado */
-  padding: 1.05rem 1.05rem;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  /* padding horizontal para o placeholder nao ficar colado */
+  padding: 0.95rem 0.9rem;
   font-size: 1rem;
   font-family: "Outfit", sans-serif;
   color: var(--text);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.3s ease;
 }
 
 /* Placeholder mais claro e elegante (sem perder contraste) */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(17, 17, 17, 0.22);
+  color: rgba(26, 26, 26, 0.48);
   opacity: 1; /* Safari */
 }
 
 .form-group input:focus::placeholder,
 .form-group textarea:focus::placeholder {
-  color: rgba(17, 17, 17, 0.18);
+  color: rgba(26, 26, 26, 0.35);
 }
 
 .form-group input:focus,
@@ -1325,7 +1257,6 @@ header,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--red);
-  box-shadow: 0 0 0 4px rgba(255, 54, 54, 0.12);
 }
 
 .form-group textarea {
@@ -1376,29 +1307,6 @@ header,
   color: white;
 }
 
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-}
-
-.logo-text {
-  line-height: 1;
-}
-
-.icon-svg, .social-icon {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Ícones em botões com fundo escuro/vermelho */
-.contact-link-icon .icon-svg,
-.footer-social .social-icon,
-.footer .logo-mark {
-  filter: brightness(0) invert(1);
-}
-
 .footer-links {
   display: flex;
   gap: 3rem;
@@ -1444,29 +1352,14 @@ header,
 @media (max-width: 1024px) {
   .hero {
     grid-template-columns: 1fr;
-    min-height: auto;
   }
 
   .hero-right {
-    display: flex;
-    min-height: 52vh;
-    padding: 3.5rem 1.75rem;
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease 1.05s forwards;
+    display: none;
   }
 
   .hero-left {
     padding: 9rem 3rem 6rem;
-  }
-
-  /* Ajustes do bloco vermelho no mobile/tablet */
-  .hero-visual-text {
-    font-size: 42vw;
-  }
-
-  .hero-phone {
-    width: 240px;
-    height: 480px;
   }
 
   .section-header {
@@ -1515,26 +1408,6 @@ header,
 
   .hero-title {
     font-size: 3.5rem;
-  }
-
-  /* Evita corte/overflow dos botoes no Hero no celular */
-  .hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    justify-content: center;
-    padding: 1rem 1.25rem;
-  }
-
-  .hero-left {
-    padding: 8rem 1.25rem 4.5rem;
   }
 
   .stats {

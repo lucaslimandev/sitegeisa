@@ -35,11 +35,40 @@
     })
   }
 
-  // ===== Header: sempre claro (fundo branco + texto escuro) =====
-  // Mantemos o JS simples e evitamos trocar classes conforme o scroll.
-  if (header) {
-    header.classList.remove("header--dark")
-    header.classList.add("header--light")
+  // ===== Header theme (dark/light) by section =====
+  function setHeaderTheme(theme) {
+    if (!header) return
+
+    header.classList.toggle("header--dark", theme === "light")
+    header.classList.toggle("header--light", theme === "light")
+  }
+
+  // default theme
+  setHeaderTheme("dark")
+
+  // Observe sections and footer; expects data-header="dark|light"
+  const themedTargets = document.querySelectorAll("main section, footer")
+  if (header && themedTargets.length) {
+    const themeObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort(
+            (a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0),
+          )[0]
+
+        if (!visible) return
+
+        const theme = visible.target.getAttribute("data-header")
+        if (theme === "light" || theme === "dark") setHeaderTheme(theme)
+      },
+      {
+        threshold: [0.15, 0.25, 0.35, 0.5],
+        rootMargin: "-10% 0px -70% 0px",
+      },
+    )
+
+    themedTargets.forEach((el) => themeObserver.observe(el))
   }
 
   // ===== Mobile drawer =====
@@ -136,71 +165,15 @@
     })
   }
 
-  // ===== Form submit: envia para WhatsApp + Email (automatico via FormSubmit) =====
+  // ===== Form feedback (fake submit) =====
   if (form && feedback) {
     form.addEventListener("submit", (e) => {
       e.preventDefault()
 
-      const nome = (document.querySelector("#nome")?.value || "").trim()
-      const email = (document.querySelector("#email")?.value || "").trim()
-      const whats = (document.querySelector("#whats")?.value || "").trim()
-      const segmento = (document.querySelector("#segmento")?.value || "").trim()
-      const servico = (document.querySelector("#servico")?.value || "").trim()
-      const mensagem = (document.querySelector("#mensagem")?.value || "").trim()
-
-      const WHATSAPP_NUMBER = "5577981472959"
-      // Troque pelo email que vai receber as notificacoes
-      // (precisa existir; no FormSubmit voce confirma uma unica vez).
-      const EMAIL_TO = "lucaslimadonasc@gmail.com"
-
-      // Monta uma mensagem bonita (curta e objetiva)
-      const linhas = [
-        "Olá! Vim pelo seu site",
-        nome ? `Nome: ${nome}` : null,
-        email ? `Email: ${email}` : null,
-        whats ? `WhatsApp: ${whats}` : null,
-        segmento ? `Segmento: ${segmento}` : null,
-        servico ? `Serviço: ${servico}` : null,
-        mensagem ? `\nMensagem:\n${mensagem}` : null,
-      ].filter(Boolean)
-
-      const texto = linhas.join("\n")
-
-      // 1) WhatsApp (abre nova aba)
-      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`
-      window.open(waUrl, "_blank", "noopener,noreferrer")
-
-      // 2) Email automatico (sem depender do email do cliente): FormSubmit (serverless)
-      // Docs: https://formsubmit.co/
-      // Observacao: na primeira vez, o FormSubmit manda um email para CONFIRMAR o endereco.
-      const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(EMAIL_TO)}`
-
-      const fd = new FormData()
-      fd.append("Nome", nome)
-      fd.append("Email", email)
-      fd.append("WhatsApp", whats)
-      fd.append("Segmento", segmento)
-      fd.append("Servico", servico)
-      fd.append("Mensagem", mensagem)
-      fd.append("_subject", "Novo contato pelo site")
-      fd.append("_captcha", "false")
-      fd.append("_template", "table")
-
-      fetch(endpoint, {
-        method: "POST",
-        body: fd,
-        headers: { Accept: "application/json" },
-      })
-        .then(async (r) => {
-          if (!r.ok) throw new Error("Falha ao enviar")
-          feedback.textContent =
-            "Mensagem preparada no WhatsApp e enviada por email. Se o WhatsApp não abriu, verifique o bloqueador de pop-ups."
-          form.reset()
-        })
-        .catch(() => {
-          feedback.textContent =
-            "WhatsApp aberto. Nao consegui enviar o email automatico agora (bloqueio de rede ou email nao confirmado no FormSubmit)."
-        })
+      // simple client-side feedback
+      feedback.textContent =
+        "Mensagem enviada com sucesso! Entrarei em contato em breve."
+      form.reset()
     })
   }
 })()
